@@ -1,0 +1,3 @@
+datasets/*
+__pycache__/
+stock_model.h5
