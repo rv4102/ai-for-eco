@@ -31,7 +31,7 @@ def order_select_ic(training_data_diff):
     print(p, q)  # 2 0
 
 def order_select_search(training_set):
-    df2 = training_set['close'].diff(1).dropna()
+    df2 = training_set['Close'].diff(1).dropna()
     # pmax = int(len(df2) / 10)
     # qmax = int(len(df2) / 10)
     pmax = 5
@@ -42,9 +42,9 @@ def order_select_search(training_set):
         temp3 = []
         for q in range(qmax+1):
             try:
-                # print('!', ARIMA(data['close'], order=(p, 1, q)).fit().bic)
-                # temp.append(ARIMA(data['close'], order=(p, 1, q)).fit().bic)
-                temp3.append(sm.tsa.ARIMA(training_set['close'], order=(p, 1, q)).fit().bic)
+                # print('!', ARIMA(data['Close'], order=(p, 1, q)).fit().bic)
+                # temp.append(ARIMA(data['Close'], order=(p, 1, q)).fit().bic)
+                temp3.append(sm.tsa.ARIMA(training_set['Close'], order=(p, 1, q)).fit().bic)
             except:
                 temp3.append(None)
         bic_matrix.append(temp3)
@@ -169,5 +169,5 @@ def prepare_data(series, n_test, n_in, n_out):
     values = series.values
     supervised_data = series_to_supervised(values, n_in, n_out)
     print('supervised_data', supervised_data)
-    train, test = supervised_data.loc[:3499, :], supervised_data.loc[3500:, :]
+    train, test = supervised_data.loc[:3501, :], supervised_data.loc[3501:, :]
     return train, test

@@ -1,0 +1,50 @@
+(5, 2)
+# [[ 2553.600098   18602.349609  ]
+ [ 2585.300049   18604.449219  ]
+ [ 2252.75       18445.300781  ]
+ [ 2524.199951   18477.050781  ]
+ [-1074.0423544    662.92636566]]
+SHAPE :  (3479, 20, 5) (3479, 1)
+Index(['Open', 'High', 'Low', 'Close', '0'], dtype='object')
+Index(['Open', 'High', 'Low', 'Close'], dtype='object')
+(5, 2)
+testX Y shape is: (419, 20, 5) (419, 1)
+(None, 2560)
+New shape (None, 2560)
+Model: "model"
+__________________________________________________________________________________________________
+ Layer (type)                   Output Shape         Param #     Connected to                     
+==================================================================================================
+ input_1 (InputLayer)           [(None, 20, 5)]      0           []                               
+                                                                                                  
+ conv1d (Conv1D)                (None, 20, 64)       384         ['input_1[0][0]']                
+                                                                                                  
+ dropout (Dropout)              (None, 20, 64)       0           ['conv1d[0][0]']                 
+                                                                                                  
+ bidirectional (Bidirectional)  (None, 20, 128)      66048       ['dropout[0][0]']                
+                                                                                                  
+ dropout_1 (Dropout)            (None, 20, 128)      0           ['bidirectional[0][0]']          
+                                                                                                  
+ permute (Permute)              (None, 128, 20)      0           ['dropout_1[0][0]']              
+                                                                                                  
+ dense (Dense)                  (None, 128, 20)      420         ['permute[0][0]']                
+                                                                                                  
+ permute_1 (Permute)            (None, 20, 128)      0           ['dense[0][0]']                  
+                                                                                                  
+ multiply (Multiply)            (None, 20, 128)      0           ['dropout_1[0][0]',              
+                                                                  'permute_1[0][0]']              
+                                                                                                  
+ flatten (Flatten)              (None, 2560)         0           ['multiply[0][0]']               
+                                                                                                  
+ dense_1 (Dense)                (None, 1)            2561        ['flatten[0][0]']                
+                                                                                                  
+==================================================================================================
+Total params: 69,413
+Trainable params: 69,413
+Non-trainable params: 0
+__________________________________________________________________________________________________
+ 1/14 [=>............................] - ETA: 6s14/14 [==============================] - 1s 4ms/step
+MSE: 0.01420
+RMSE: 0.11918
+MAE: 0.08457
+R2: 0.72236

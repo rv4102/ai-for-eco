@@ -1,0 +1,507 @@
+(5, 2)
+SHAPE :  (3479, 20, 5) (3479, 1)
+440
+Index(['Open', 'High', 'Low', 'Close', '0'], dtype='object')
+Index(['Open', 'High', 'Low', 'Close'], dtype='object')
+(5, 2)
+testX Y shape is: (3920, 20, 5) (3920, 1)
+(None, 2560)
+New shape (None, 2560)
+Model: "model"
+__________________________________________________________________________________________________
+ Layer (type)                   Output Shape         Param #     Connected to                     
+==================================================================================================
+ input_1 (InputLayer)           [(None, 20, 5)]      0           []                               
+                                                                                                  
+ conv1d (Conv1D)                (None, 20, 64)       384         ['input_1[0][0]']                
+                                                                                                  
+ dropout (Dropout)              (None, 20, 64)       0           ['conv1d[0][0]']                 
+                                                                                                  
+ bidirectional (Bidirectional)  (None, 20, 128)      66048       ['dropout[0][0]']                
+                                                                                                  
+ dropout_1 (Dropout)            (None, 20, 128)      0           ['bidirectional[0][0]']          
+                                                                                                  
+ permute (Permute)              (None, 128, 20)      0           ['dropout_1[0][0]']              
+                                                                                                  
+ dense (Dense)                  (None, 128, 20)      420         ['permute[0][0]']                
+                                                                                                  
+ permute_1 (Permute)            (None, 20, 128)      0           ['dense[0][0]']                  
+                                                                                                  
+ multiply (Multiply)            (None, 20, 128)      0           ['dropout_1[0][0]',              
+                                                                  'permute_1[0][0]']              
+                                                                                                  
+ flatten (Flatten)              (None, 2560)         0           ['multiply[0][0]']               
+                                                                                                  
+ dense_1 (Dense)                (None, 1)            2561        ['flatten[0][0]']                
+                                                                                                  
+==================================================================================================
+Total params: 69,413
+Trainable params: 69,413
+Non-trainable params: 0
+__________________________________________________________________________________________________
+  1/123 [..............................] - ETA: 58s 15/123 [==>...........................] - ETA: 0s  30/123 [======>.......................] - ETA: 0s 45/123 [=========>....................] - ETA: 0s 61/123 [=============>................] - ETA: 0s 76/123 [=================>............] - ETA: 0s 91/123 [=====================>........] - ETA: 0s107/123 [=========================>....] - ETA: 0s123/123 [==============================] - ETA: 0s123/123 [==============================] - 1s 3ms/step
+supervised_data          var1(t-6)     var2(t-6)  ...   var4(t)       var5(t)
+6      5658.899902   5658.899902  ...  0.118207   5568.950195
+7      5551.100098   5736.799805  ...  0.118780   5702.299805
+8      5360.350098   5390.850098  ...  0.119454   5905.899902
+9      5202.750000   5247.399902  ...  0.120419   5868.750000
+10     5185.299805   5488.500000  ...  0.121940   5900.649902
+...            ...           ...  ...       ...           ...
+3915  19761.800781  19766.650391  ...  0.619738  19512.349609
+3916  19581.199219  19726.250000  ...  0.620262  19689.849609
+3917  19622.400391  19623.199219  ...  0.619693  19811.349609
+3918  19446.300781  19457.800781  ...  0.620337  19794.000000
+3919  19521.849609  19576.949219  ...  0.620582  19751.050781
+
+[3914 rows x 35 columns]
+Train:           var1(t-6)     var2(t-6)  ...   var4(t)       var5(t)
+6      5658.899902   5658.899902  ...  0.118207   5568.950195
+7      5551.100098   5736.799805  ...  0.118780   5702.299805
+8      5360.350098   5390.850098  ...  0.119454   5905.899902
+9      5202.750000   5247.399902  ...  0.120419   5868.750000
+10     5185.299805   5488.500000  ...  0.121940   5900.649902
+...            ...           ...  ...       ...           ...
+3497  17921.000000  17943.699219  ...  0.598967  17339.849609
+3498  17613.699219  17707.599609  ...  0.600392  17576.849609
+3499  17575.150391  17599.400391  ...  0.602108  17780.000000
+3500  17001.550781  17309.150391  ...  0.603864  17560.199219
+3501  17062.000000  17182.500000  ...  0.604702  17516.300781
+
+[3496 rows x 35 columns]
+Test:           var1(t-6)     var2(t-6)  ...   var4(t)       var5(t)
+3501  17062.000000  17182.500000  ...  0.604702  17516.300781
+3502  17208.300781  17373.500000  ...  0.603943  17213.599609
+3503  17301.050781  17410.000000  ...  0.603467  17266.750000
+3504  17529.449219  17622.400391  ...  0.600095  17463.800781
+3505  17706.199219  17794.599609  ...  0.600817  17605.849609
+...            ...           ...  ...       ...           ...
+3915  19761.800781  19766.650391  ...  0.619738  19512.349609
+3916  19581.199219  19726.250000  ...  0.620262  19689.849609
+3917  19622.400391  19623.199219  ...  0.619693  19811.349609
+3918  19446.300781  19457.800781  ...  0.620337  19794.000000
+3919  19521.849609  19576.949219  ...  0.620582  19751.050781
+
+[419 rows x 35 columns]
+1 >expected=17516.300781, predicted=17487.699219
+2 >expected=17213.599609, predicted=17277.007812
+3 >expected=17266.750000, predicted=17288.867188
+4 >expected=17463.800781, predicted=17403.771484
+5 >expected=17605.849609, predicted=17571.242188
+6 >expected=17374.750000, predicted=17380.373047
+7 >expected=16842.800781, predicted=16832.103516
+8 >expected=17352.449219, predicted=17129.195312
+9 >expected=17322.199219, predicted=17456.232422
+10 >expected=17304.599609, predicted=17275.392578
+11 >expected=17276.300781, predicted=17327.812500
+12 >expected=17206.650391, predicted=17081.412109
+13 >expected=17092.199219, predicted=16930.320312
+14 >expected=17063.250000, predicted=17121.357422
+15 >expected=16247.950195, predicted=16816.515625
+16 >expected=16658.400391, predicted=16790.179688
+17 >expected=16793.900391, predicted=16874.570312
+18 >expected=16605.949219, predicted=16888.240234
+19 >expected=16498.050781, predicted=16581.474609
+20 >expected=16245.349609, predicted=16152.344727
+21 >expected=15863.150391, predicted=15749.934570
+22 >expected=16013.450195, predicted=15767.300781
+23 >expected=16345.349609, predicted=16054.053711
+24 >expected=16594.900391, predicted=16492.246094
+25 >expected=16630.449219, predicted=16374.051758
+26 >expected=16871.300781, predicted=17034.302734
+27 >expected=16663.000000, predicted=16667.164062
+28 >expected=16975.349609, predicted=16760.666016
+29 >expected=17287.050781, predicted=17221.699219
+30 >expected=17117.599609, predicted=17126.576172
+31 >expected=17315.500000, predicted=17090.255859
+32 >expected=17245.650391, predicted=17298.439453
+33 >expected=17222.750000, predicted=17151.037109
+34 >expected=17153.000000, predicted=17145.779297
+35 >expected=17222.000000, predicted=17110.488281
+36 >expected=17325.300781, predicted=17213.189453
+37 >expected=17498.250000, predicted=17363.867188
+38 >expected=17464.750000, predicted=17468.041016
+39 >expected=17670.449219, predicted=17459.488281
+40 >expected=18053.400391, predicted=17900.226562
+41 >expected=17957.400391, predicted=17975.238281
+42 >expected=17807.650391, predicted=17815.529297
+43 >expected=17639.550781, predicted=17713.525391
+44 >expected=17784.349609, predicted=17719.656250
+45 >expected=17674.949219, predicted=17712.628906
+46 >expected=17530.300781, predicted=17488.433594
+47 >expected=17475.650391, predicted=17608.148438
+48 >expected=17173.650391, predicted=17106.523438
+49 >expected=16958.650391, predicted=17117.187500
+50 >expected=17136.550781, predicted=17076.552734
+51 >expected=17392.599609, predicted=17282.210938
+52 >expected=17171.949219, predicted=17267.234375
+53 >expected=16953.949219, predicted=16835.339844
+54 >expected=17200.800781, predicted=17213.193359
+55 >expected=17038.400391, predicted=17051.324219
+56 >expected=17245.050781, predicted=17196.576172
+57 >expected=17102.550781, predicted=17193.845703
+58 >expected=17069.099609, predicted=16884.822266
+59 >expected=16677.599609, predicted=16958.554688
+60 >expected=16682.650391, predicted=16648.980469
+61 >expected=16411.250000, predicted=16562.140625
+62 >expected=16301.849609, predicted=16510.927734
+63 >expected=16240.049805, predicted=16531.003906
+64 >expected=16167.099609, predicted=16028.135742
+65 >expected=15808.000000, predicted=15963.700195
+66 >expected=15782.150391, predicted=15893.760742
+67 >expected=15842.299805, predicted=16040.856445
+68 >expected=16259.299805, predicted=16025.821289
+69 >expected=16240.299805, predicted=16453.916016
+70 >expected=15809.400391, predicted=15786.286133
+71 >expected=16266.150391, predicted=16348.417969
+72 >expected=16214.700195, predicted=16351.350586
+73 >expected=16125.150391, predicted=16300.107422
+74 >expected=16025.799805, predicted=16286.565430
+75 >expected=16170.150391, predicted=16299.177734
+76 >expected=16352.450195, predicted=16301.738281
+77 >expected=16661.400391, predicted=16566.126953
+78 >expected=16584.550781, predicted=16659.519531
+79 >expected=16522.750000, predicted=16356.372070
+80 >expected=16628.000000, predicted=16380.233398
+81 >expected=16584.300781, predicted=16616.093750
+82 >expected=16569.550781, predicted=16523.460938
+83 >expected=16416.349609, predicted=16530.759766
+84 >expected=16356.250000, predicted=16364.546875
+85 >expected=16478.099609, predicted=16312.699219
+86 >expected=16201.799805, predicted=16117.799805
+87 >expected=15774.400391, predicted=15798.629883
+88 >expected=15732.099609, predicted=15844.084961
+89 >expected=15692.150391, predicted=15774.135742
+90 >expected=15360.599609, predicted=15713.232422
+91 >expected=15293.500000, predicted=15557.910156
+92 >expected=15350.150391, predicted=15275.851562
+93 >expected=15638.799805, predicted=15579.923828
+94 >expected=15413.299805, predicted=15611.085938
+95 >expected=15556.650391, predicted=15586.766602
+96 >expected=15699.250000, predicted=15755.554688
+97 >expected=15832.049805, predicted=15618.853516
+98 >expected=15850.200195, predicted=15861.266602
+99 >expected=15799.099609, predicted=15742.513672
+100 >expected=15780.250000, predicted=15760.974609
+101 >expected=15752.049805, predicted=15722.817383
+102 >expected=15835.349609, predicted=15752.927734
+103 >expected=15810.849609, predicted=15953.547852
+104 >expected=15989.799805, predicted=15813.318359
+105 >expected=16132.900391, predicted=16026.258789
+106 >expected=16220.599609, predicted=16102.519531
+107 >expected=16216.000000, predicted=16093.019531
+108 >expected=16058.299805, predicted=16239.191406
+109 >expected=15966.650391, predicted=16231.698242
+110 >expected=15938.650391, predicted=15819.098633
+111 >expected=16049.200195, predicted=15819.175781
+112 >expected=16278.500000, predicted=16197.879883
+113 >expected=16340.549805, predicted=16269.542969
+114 >expected=16520.849609, predicted=16623.660156
+115 >expected=16605.250000, predicted=16476.384766
+116 >expected=16719.449219, predicted=16601.738281
+117 >expected=16631.000000, predicted=16566.919922
+118 >expected=16483.849609, predicted=16585.417969
+119 >expected=16641.800781, predicted=16404.609375
+120 >expected=16929.599609, predicted=16928.986328
+121 >expected=17158.250000, predicted=17187.748047
+122 >expected=17340.050781, predicted=17214.146484
+123 >expected=17345.449219, predicted=17235.371094
+124 >expected=17388.150391, predicted=17292.259766
+125 >expected=17382.000000, predicted=17327.607422
+126 >expected=17397.500000, predicted=17376.310547
+127 >expected=17525.099609, predicted=17431.400391
+128 >expected=17534.750000, predicted=17538.767578
+129 >expected=17659.000000, predicted=17682.230469
+130 >expected=17698.150391, predicted=17708.626953
+131 >expected=17825.250000, predicted=17829.179688
+132 >expected=17944.250000, predicted=17837.595703
+133 >expected=17956.500000, predicted=17912.333984
+134 >expected=17758.449219, predicted=17893.285156
+135 >expected=17490.699219, predicted=17660.169922
+136 >expected=17577.500000, predicted=17373.226562
+137 >expected=17604.949219, predicted=17609.423828
+138 >expected=17522.449219, predicted=17654.785156
+139 >expected=17558.900391, predicted=17520.218750
+140 >expected=17312.900391, predicted=17289.980469
+141 >expected=17759.300781, predicted=17488.115234
+142 >expected=17542.800781, predicted=17519.431641
+143 >expected=17539.449219, predicted=17586.349609
+144 >expected=17665.800781, predicted=17576.498047
+145 >expected=17655.599609, predicted=17621.539062
+146 >expected=17624.400391, predicted=17547.158203
+147 >expected=17798.750000, predicted=17792.943359
+148 >expected=17833.349609, predicted=17778.046875
+149 >expected=17936.349609, predicted=17924.134766
+150 >expected=18070.050781, predicted=18034.923828
+151 >expected=18003.750000, predicted=17981.978516
+152 >expected=17877.400391, predicted=18021.791016
+153 >expected=17530.849609, predicted=17558.556641
+154 >expected=17622.250000, predicted=17576.457031
+155 >expected=17816.250000, predicted=17827.060547
+156 >expected=17718.349609, predicted=17873.974609
+157 >expected=17629.800781, predicted=17545.988281
+158 >expected=17327.349609, predicted=17476.957031
+159 >expected=17016.300781, predicted=17167.072266
+160 >expected=17007.400391, predicted=17104.166016
+161 >expected=16858.599609, predicted=16892.789062
+162 >expected=16818.099609, predicted=16908.929688
+163 >expected=17094.349609, predicted=16873.560547
+164 >expected=16887.349609, predicted=17181.976562
+165 >expected=17274.300781, predicted=17161.708984
+166 >expected=17331.800781, predicted=17345.998047
+167 >expected=17314.650391, predicted=17307.087891
+168 >expected=17241.000000, predicted=17187.761719
+169 >expected=16983.550781, predicted=17144.886719
+170 >expected=17123.599609, predicted=16966.880859
+171 >expected=17014.349609, predicted=16897.162109
+172 >expected=17185.699219, predicted=17359.216797
+173 >expected=17311.800781, predicted=17252.634766
+174 >expected=17486.949219, predicted=17505.585938
+175 >expected=17512.250000, predicted=17515.121094
+176 >expected=17563.949219, predicted=17476.542969
+177 >expected=17576.300781, predicted=17529.330078
+178 >expected=17730.750000, predicted=17798.597656
+179 >expected=17656.349609, predicted=17647.673828
+180 >expected=17736.949219, predicted=17766.740234
+181 >expected=17786.800781, predicted=17739.824219
+182 >expected=18012.199219, predicted=17938.783203
+183 >expected=18145.400391, predicted=18086.074219
+184 >expected=18082.849609, predicted=18040.388672
+185 >expected=18052.699219, predicted=18028.521484
+186 >expected=18117.150391, predicted=18020.378906
+187 >expected=18202.800781, predicted=18214.636719
+188 >expected=18157.000000, predicted=18154.582031
+189 >expected=18028.199219, predicted=17983.171875
+190 >expected=18349.699219, predicted=18247.419922
+191 >expected=18329.150391, predicted=18227.890625
+192 >expected=18403.400391, predicted=18205.208984
+193 >expected=18409.650391, predicted=18230.625000
+194 >expected=18343.900391, predicted=18261.794922
+195 >expected=18307.650391, predicted=18250.681641
+196 >expected=18159.949219, predicted=18244.355469
+197 >expected=18244.199219, predicted=18160.650391
+198 >expected=18267.250000, predicted=18225.070312
+199 >expected=18484.099609, predicted=18250.501953
+200 >expected=18512.750000, predicted=18317.886719
+201 >expected=18562.750000, predicted=18322.687500
+202 >expected=18618.050781, predicted=18414.277344
+203 >expected=18758.349609, predicted=18446.300781
+204 >expected=18812.500000, predicted=18555.587891
+205 >expected=18696.099609, predicted=18633.501953
+206 >expected=18701.050781, predicted=18656.552734
+207 >expected=18642.750000, predicted=18668.251953
+208 >expected=18560.500000, predicted=18662.664062
+209 >expected=18609.349609, predicted=18611.439453
+210 >expected=18496.599609, predicted=18616.095703
+211 >expected=18497.150391, predicted=18596.505859
+212 >expected=18608.000000, predicted=18567.583984
+213 >expected=18660.300781, predicted=18581.203125
+214 >expected=18414.900391, predicted=18597.890625
+215 >expected=18269.000000, predicted=18396.328125
+216 >expected=18420.449219, predicted=18342.771484
+217 >expected=18385.300781, predicted=18223.845703
+218 >expected=18199.099609, predicted=18284.814453
+219 >expected=18127.349609, predicted=18206.935547
+220 >expected=17806.800781, predicted=17840.720703
+221 >expected=18014.599609, predicted=17848.701172
+222 >expected=18132.300781, predicted=18089.863281
+223 >expected=18122.500000, predicted=18131.345703
+224 >expected=18191.000000, predicted=18086.156250
+225 >expected=18105.300781, predicted=18177.179688
+226 >expected=18197.449219, predicted=18104.611328
+227 >expected=18232.550781, predicted=18124.062500
+228 >expected=18042.949219, predicted=18089.175781
+229 >expected=17992.150391, predicted=18013.689453
+230 >expected=17859.449219, predicted=17878.378906
+231 >expected=18101.199219, predicted=18053.330078
+232 >expected=17914.150391, predicted=17982.996094
+233 >expected=17895.699219, predicted=17893.457031
+234 >expected=17858.199219, predicted=17951.082031
+235 >expected=17956.599609, predicted=17878.103516
+236 >expected=17894.849609, predicted=17947.964844
+237 >expected=18053.300781, predicted=17935.183594
+238 >expected=18165.349609, predicted=18087.638672
+239 >expected=18107.849609, predicted=18098.769531
+240 >expected=18027.650391, predicted=18060.257812
+241 >expected=18118.550781, predicted=18120.994141
+242 >expected=18118.300781, predicted=18168.791016
+243 >expected=17891.949219, predicted=17921.095703
+244 >expected=17604.349609, predicted=17471.439453
+245 >expected=17648.949219, predicted=17544.808594
+246 >expected=17662.150391, predicted=17560.968750
+247 >expected=17616.300781, predicted=17615.798828
+248 >expected=17610.400391, predicted=17578.923828
+249 >expected=17854.050781, predicted=17592.804688
+250 >expected=17764.599609, predicted=17867.958984
+251 >expected=17721.500000, predicted=17687.937500
+252 >expected=17871.699219, predicted=17858.390625
+253 >expected=17893.449219, predicted=17868.197266
+254 >expected=17856.500000, predicted=17887.544922
+255 >expected=17770.900391, predicted=17835.425781
+256 >expected=17929.849609, predicted=17884.023438
+257 >expected=18015.849609, predicted=18012.148438
+258 >expected=18035.849609, predicted=18075.103516
+259 >expected=17944.199219, predicted=17920.589844
+260 >expected=17844.599609, predicted=17930.615234
+261 >expected=17826.699219, predicted=17821.621094
+262 >expected=17554.300781, predicted=17586.652344
+263 >expected=17511.250000, predicted=17486.513672
+264 >expected=17465.800781, predicted=17515.144531
+265 >expected=17392.699219, predicted=17299.707031
+266 >expected=17303.949219, predicted=17357.955078
+267 >expected=17450.900391, predicted=17482.488281
+268 >expected=17321.900391, predicted=17335.140625
+269 >expected=17594.349609, predicted=17589.248047
+270 >expected=17711.449219, predicted=17884.263672
+271 >expected=17754.400391, predicted=17668.941406
+272 >expected=17589.599609, predicted=17627.480469
+273 >expected=17412.900391, predicted=17418.361328
+274 >expected=17154.300781, predicted=17232.187500
+275 >expected=17043.300781, predicted=17250.597656
+276 >expected=16972.150391, predicted=17003.205078
+277 >expected=16985.599609, predicted=16942.234375
+278 >expected=17100.050781, predicted=16970.539062
+279 >expected=16988.400391, predicted=16913.863281
+280 >expected=17107.500000, predicted=16954.947266
+281 >expected=17151.900391, predicted=17216.541016
+282 >expected=17076.900391, predicted=17149.023438
+283 >expected=16945.050781, predicted=16947.169922
+284 >expected=16985.699219, predicted=17052.955078
+285 >expected=16951.699219, predicted=17000.792969
+286 >expected=17080.699219, predicted=17039.167969
+287 >expected=17359.750000, predicted=17237.595703
+288 >expected=17398.050781, predicted=17426.810547
+289 >expected=17557.050781, predicted=17509.146484
+290 >expected=17599.150391, predicted=17530.275391
+291 >expected=17624.050781, predicted=17721.250000
+292 >expected=17722.300781, predicted=17684.001953
+293 >expected=17812.400391, predicted=17745.384766
+294 >expected=17828.000000, predicted=17735.158203
+295 >expected=17706.849609, predicted=17744.982422
+296 >expected=17660.150391, predicted=17694.308594
+297 >expected=17618.750000, predicted=17727.876953
+298 >expected=17624.449219, predicted=17684.220703
+299 >expected=17624.050781, predicted=17734.875000
+300 >expected=17743.400391, predicted=17709.527344
+301 >expected=17769.250000, predicted=17743.599609
+302 >expected=17813.599609, predicted=17757.203125
+303 >expected=17915.050781, predicted=17843.171875
+304 >expected=18065.000000, predicted=18051.611328
+305 >expected=18147.650391, predicted=18199.500000
+306 >expected=18089.849609, predicted=18031.345703
+307 >expected=18255.800781, predicted=18159.525391
+308 >expected=18069.000000, predicted=18149.724609
+309 >expected=18264.400391, predicted=18188.378906
+310 >expected=18265.949219, predicted=18293.363281
+311 >expected=18315.099609, predicted=18288.525391
+312 >expected=18297.000000, predicted=18343.316406
+313 >expected=18314.800781, predicted=18205.820312
+314 >expected=18398.849609, predicted=18307.150391
+315 >expected=18286.500000, predicted=18362.585938
+316 >expected=18181.750000, predicted=18223.802734
+317 >expected=18129.949219, predicted=18164.529297
+318 >expected=18203.400391, predicted=18047.533203
+319 >expected=18314.400391, predicted=18253.439453
+320 >expected=18348.000000, predicted=18339.621094
+321 >expected=18285.400391, predicted=18394.679688
+322 >expected=18321.150391, predicted=18248.904297
+323 >expected=18499.349609, predicted=18334.423828
+324 >expected=18598.650391, predicted=18616.451172
+325 >expected=18633.849609, predicted=18581.800781
+326 >expected=18534.400391, predicted=18612.908203
+327 >expected=18487.750000, predicted=18641.716797
+328 >expected=18534.099609, predicted=18534.474609
+329 >expected=18593.849609, predicted=18642.484375
+330 >expected=18599.000000, predicted=18591.597656
+331 >expected=18726.400391, predicted=18562.564453
+332 >expected=18634.550781, predicted=18671.792969
+333 >expected=18563.400391, predicted=18630.632812
+334 >expected=18601.500000, predicted=18601.546875
+335 >expected=18716.150391, predicted=18631.250000
+336 >expected=18755.900391, predicted=18622.542969
+337 >expected=18688.099609, predicted=18660.394531
+338 >expected=18826.000000, predicted=18639.376953
+339 >expected=18755.449219, predicted=18686.117188
+340 >expected=18816.699219, predicted=18694.000000
+341 >expected=18856.849609, predicted=18712.357422
+342 >expected=18771.250000, predicted=18751.103516
+343 >expected=18665.500000, predicted=18740.722656
+344 >expected=18691.199219, predicted=18724.972656
+345 >expected=18817.400391, predicted=18722.236328
+346 >expected=18972.099609, predicted=18743.283203
+347 >expected=19189.050781, predicted=18766.187500
+348 >expected=19322.550781, predicted=18818.292969
+349 >expected=19389.000000, predicted=18894.929688
+350 >expected=19398.500000, predicted=18972.197266
+351 >expected=19497.300781, predicted=19108.951172
+352 >expected=19331.800781, predicted=19153.402344
+353 >expected=19355.900391, predicted=19277.642578
+354 >expected=19439.400391, predicted=19289.732422
+355 >expected=19384.300781, predicted=19343.617188
+356 >expected=19413.750000, predicted=19335.037109
+357 >expected=19564.500000, predicted=19348.962891
+358 >expected=19711.449219, predicted=19363.552734
+359 >expected=19749.250000, predicted=19406.835938
+360 >expected=19833.150391, predicted=19448.750000
+361 >expected=19979.150391, predicted=19473.908203
+362 >expected=19745.000000, predicted=19518.605469
+363 >expected=19672.349609, predicted=19552.193359
+364 >expected=19680.599609, predicted=19558.734375
+365 >expected=19778.300781, predicted=19573.560547
+366 >expected=19659.900391, predicted=19613.792969
+367 >expected=19646.050781, predicted=19622.052734
+368 >expected=19753.800781, predicted=19636.697266
+369 >expected=19733.550781, predicted=19665.388672
+370 >expected=19526.550781, predicted=19694.583984
+371 >expected=19381.650391, predicted=19693.548828
+372 >expected=19517.000000, predicted=19691.953125
+373 >expected=19597.300781, predicted=19680.636719
+374 >expected=19570.849609, predicted=19691.046875
+375 >expected=19632.550781, predicted=19678.939453
+376 >expected=19543.099609, predicted=19691.509766
+377 >expected=19428.300781, predicted=19549.298828
+378 >expected=19434.550781, predicted=19415.888672
+379 >expected=19465.000000, predicted=19408.425781
+380 >expected=19365.250000, predicted=19420.941406
+381 >expected=19310.150391, predicted=19403.451172
+382 >expected=19393.599609, predicted=19175.630859
+383 >expected=19396.449219, predicted=19468.802734
+384 >expected=19444.000000, predicted=19448.994141
+385 >expected=19386.699219, predicted=19444.394531
+386 >expected=19265.800781, predicted=19257.251953
+387 >expected=19306.050781, predicted=19230.501953
+388 >expected=19342.650391, predicted=19278.621094
+389 >expected=19347.449219, predicted=19363.082031
+390 >expected=19253.800781, predicted=19239.820312
+391 >expected=19435.300781, predicted=19330.746094
+392 >expected=19528.800781, predicted=19406.646484
+393 >expected=19574.900391, predicted=19524.111328
+394 >expected=19611.050781, predicted=19656.892578
+395 >expected=19727.050781, predicted=19581.298828
+396 >expected=19819.949219, predicted=19715.974609
+397 >expected=19996.349609, predicted=19776.892578
+398 >expected=19993.199219, predicted=19711.566406
+399 >expected=20070.000000, predicted=19678.488281
+400 >expected=20103.099609, predicted=19707.507812
+401 >expected=20192.349609, predicted=19742.917969
+402 >expected=20133.300781, predicted=19947.167969
+403 >expected=19901.400391, predicted=20055.169922
+404 >expected=19742.349609, predicted=19905.617188
+405 >expected=19674.250000, predicted=19853.117188
+406 >expected=19674.550781, predicted=19608.970703
+407 >expected=19664.699219, predicted=19617.361328
+408 >expected=19716.449219, predicted=19609.423828
+409 >expected=19523.550781, predicted=19607.857422
+410 >expected=19638.300781, predicted=19571.554688
+411 >expected=19528.750000, predicted=19454.005859
+412 >expected=19436.099609, predicted=19403.349609
+413 >expected=19545.750000, predicted=19451.857422
+414 >expected=19653.500000, predicted=19645.951172
+415 >expected=19512.349609, predicted=19480.519531
+416 >expected=19689.849609, predicted=19660.496094
+417 >expected=19811.349609, predicted=19765.765625
+418 >expected=19794.000000, predicted=19819.294922
+419 >expected=19751.050781, predicted=19669.080078
+MSE: 18835.78728
+RMSE: 137.24353
+MAE: 101.48148
+R2: 0.98477
